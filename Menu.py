@@ -8,7 +8,7 @@ def getChoice():
         choice = raw_input("Scelta: \n")
         if choice.isdigit():
             choice = int(choice)
-            if choice>0 and choice<=2:
+            if choice>=0 and choice<=3:
                 return choice
         print "Scelta non valida, riprovare"
 
@@ -19,15 +19,15 @@ def getSettings(oldKey,oldVal):
         print "---- IMPOSTAZIONI INTERROGAZIONI ----"
         print "1. Parametro di ordine"
         print "2. Criterio di ordinamento del parametro di ordine"
-        print "0. Esci"
+        print "0. Indietro"
         choice = raw_input("Scelta: \n")
         if choice.isdigit():
             choice = int(choice)
             if choice == 1:
-                newKey = getNewKey()
+                newKey = _getNewKey()
                 newKeySet = 1
             elif choice==2:
-                newVal = getNewVal()
+                newVal = _getNewVal()
                 newValSet = 1
             elif choice == 0:
                 if newKeySet == 0:
@@ -35,8 +35,8 @@ def getSettings(oldKey,oldVal):
                 if newValSet == 0:
                     newVal = oldVal
                 return (newKey,newVal)
-
-        print "Scelta non valida, riprovare"
+            else:
+                print "Scelta non valida, riprovare"
 
 
 def _getNewKey():
@@ -68,7 +68,7 @@ def _getNewVal():
             if choice == 1:
                 return 1
             elif choice == 2:
-                return 2
+                return -1
             elif choice == 3:
                 return None
         print "Scelta non valida, riprovare"
