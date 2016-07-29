@@ -13,44 +13,42 @@ nota = "Nota"
 differenza = "Differenza"
 codiceEquivalenza = "Codice gruppo equivalenza"
 
-#TODO fixare i duplicati
+infolist = [principioAttivo,farmaco,prezzoRef,prezzoPub,confezione]
+
+#TODO fixare la tabulazione
+row_format = u'{:40}' * (len(infolist)+1)
 
 def getEquivalenti(db,nomefarmaco,sortKey=None,sortVal=None):
 
     try:
         res = db.farmaci.find({farmaco:{'$regex': nomefarmaco,'$options':'i'}}).limit(1)
         principio = res[0][principioAttivo]
-        res = db.farmaci.find({principioAttivo:principio})
+        res = db.farmaci.find({principioAttivo:principio},{info:1 for info in infolist})
 
         if sortKey is not None and sortVal is not None:
             res.sort([(sortKey,sortVal)])
 
-        equivalenti = []
-        for i in res:
-            nome = i[farmaco]
-            prezzo = i[prezzoPub]
-            if (nomefarmaco,prezzo) not in equivalenti:
-                equivalenti.append((nome,prezzo))
-
         print "Gli equivalenti di " + nomefarmaco.title() + " sono: "
-        for (i,j) in equivalenti:
-            print "Nome: " + i
-            print "Prezzo: " + str(j)
+        print row_format.format("",*infolist)
+        for obj in res:
+            data = [obj[info] for info in infolist]
+            print row_format.format("",*data)
+
+
     except IndexError:
         print("Il farmaco non è presente nella lista\n")
 
 def getFarmaciPerPrincipio(db,nomeprincipio,sortKey=None,sortVal=None):
 
         try:
-            res = db.farmaci.find({principioAttivo:{'$regex':nomeprincipio,'$options':'i'}})
+            res = db.farmaci.find({principioAttivo:{'$regex':nomeprincipio,'$options':'i'}},{info:1 for info in infolist})
 
             if sortKey is not None and sortVal is not None:
                 res.sort([(sortKey,sortVal)])
             print "I farmaci caratterizzati dal principio attivo " + nomeprincipio.title() + " sono: \n"
+            print row_format.format("", *infolist)
             for obj in res:
-                print "Nome: " + obj[farmaco]
-                print "Confezione: " + obj[confezione]
-                print "Prezzo: " + str(obj[prezzoPub])
-
+                data = [obj[info] for info in infolist]
+                print row_format.format("",*data)
         except IndexError:
             print "Il principio attivo non è presente nella lista\n"

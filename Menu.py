@@ -4,11 +4,12 @@ def getChoice():
         print "1. Ricerca farmaci per principio attivo"
         print "2. Ricerca equivalenti ad un farmaco specificandone il nome"
         print "3. Impostazioni generali"
+        print "4. Aggiorna banca dati"
         print "0. Esci"
         choice = raw_input("Scelta: \n")
         if choice.isdigit():
             choice = int(choice)
-            if choice>=0 and choice<=3:
+            if choice>=0 and choice<=4:
                 return choice
         print "Scelta non valida, riprovare"
 
