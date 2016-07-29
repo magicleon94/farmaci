@@ -1,0 +1,13 @@
+#nomi dei campi della collection
+principioAttivo = "Principio attivo"
+confezioneRef = "Confezione di Riferimento"
+confezione="Confezione"
+atc = "ATC"
+aic = "AIC"
+farmaco = "Farmaco"
+ditta="Ditta"
+prezzoRef = "Prezzo riferimento"
+prezzoPub = "Prezzo Pubblico"
+nota = "Nota"
+differenza = "Differenza"
+codiceEquivalenza = "Codice gruppo equivalenza"
