@@ -1,4 +1,4 @@
-#nomi dei campi della collection
+#nomi dei campi
 principioAttivo = "Principio attivo"
 confezioneRef = "Confezione di Riferimento"
 confezione="Confezione"

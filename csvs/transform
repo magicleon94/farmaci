@@ -1,2 +1,0 @@
-echo `sed 's/\,/\./g' elenco_farmaci_equivalenti_29102015.csv | sed 's/\;/\,/g'` > farmaciUpdate.csv
-

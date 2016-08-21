@@ -1,21 +1,30 @@
 # Il file di update deve utilizzare come delimitatori le virgole.
 import csv
 from Constants import *
+import os
 
-keys = [principioAttivo,confezioneRef,atc,aic,confezione,farmaco,ditta,prezzoRef,prezzoPub,differenza,nota,codiceEquivalenza]
+keys = [principioAttivo,confezioneRef,atc,aic,farmaco,confezione,ditta,prezzoRef,prezzoPub,differenza,nota,codiceEquivalenza]
+
 def update(db,filepath):
     try:
-        limit = 10  # limite di righe da leggere per l'update, dato che ho un file completo, per avere un minore carico computazionale
-        updateFile = open(filepath,'rU')
+        #genero il file formattato correttamente
+        os.system("./transform.sh " + filepath)
+        #apro il file
+        updateFile = open("./farmaciUpdate.csv",'rU')
+
+        #leggo il file
         reader = csv.reader(updateFile)
+
+        #salto la prima riga, quella degli header
+        next(reader,None)
+
+        #Aggiorno tutto
         for row in reader:
             data = {key:val for (key,val) in zip(keys,row)}
-            #print data
             db.farmaci.update({principioAttivo:data[principioAttivo],farmaco:data[farmaco],confezioneRef:data[confezioneRef]},{'$set':data},upsert=True)
-            limit -= 1
-            if limit == 0:
-                break
+
         updateFile.close()
+        os.remove("./farmaciUpdate.csv")
     except IOError:
         print "File non trovato"
 
