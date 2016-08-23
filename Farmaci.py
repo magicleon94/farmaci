@@ -34,7 +34,7 @@ try:
 
         elif choice==4:
             #path=raw_input("Immettere il percorso del file di aggiornamento")
-            path = './csvs/Lista_equivalenti-16_febbraio_2015_0.csv'
+            path = './csvs/Lista_farmaci_equivalenti_16-maggio-201_aggiornamento.csv'
             Updater.update(db,path)
 
         elif choice==0:
